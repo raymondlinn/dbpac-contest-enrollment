@@ -1,0 +1,62 @@
+.view_table {
+	padding: 20px;	
+}
+
+.view_table h3 {
+	background: #4E342E; /*#0277BD;*/ 
+	padding: 15px 20px 10px 20px;
+	margin: -30px -30px 30px -30px;
+	border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	color: #f0f0f0;	
+}
+
+table {
+    width: 100%;
+	/*max-width: 800px;*/
+    border-collapse: collapse;
+    width: 100%;   
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #E0E0E0}
+tr:nth-child(odd){background-color: #FAFAFA}/*#f2f2f2}*/
+
+th {
+    background-color: #90CAF9;
+    color: white;
+}
+
+
+@media screen and (max-width: 600px) {
+table {width:100%;}
+thead {display: none;}
+tr:nth-of-type(2n) {background-color: inherit;}
+tr td:first-child {background: #f0f0f0; font-weight:bold;font-size:1.3em;}
+tbody td {display: block;  text-align:center;}
+tbody td:before { 
+    content: attr(data-th); 
+    display: block;
+    text-align:center;  
+  }
+}
+.instruction{
+    /* display:none; */
+}
+.view-enrollment-style{
+    /*width:50%;*/
+    padding:10px;
+    margin:5px auto;
+    background: #FFF;
+    border-radius: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+    -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.13);
+}

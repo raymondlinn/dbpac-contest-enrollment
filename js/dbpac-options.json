@@ -1,0 +1,95 @@
+[
+        {
+        	"Piano" : 
+                [
+                        {"divisionID" : "1","division" : "P Solo 1a - Age 5 (2 minutes) - $35"},
+                        {"divisionID" : "2","division" : "P Solo 1b - Age 6 to 7 (2 minutes) - $35"},
+                        {"divisionID" : "3","division" : "P Solo 2 - Age 8 to 9 (3 minutes) - $35"},
+                        {"divisionID" : "4","division" : "P Solo 3 - Age 10 to 11 (4 minutes) - $35"},
+                        {"divisionID" : "5","division" : "P Solo 4 - Age 12‏ to 13 (4 minutes) - $35"},
+                        {"divisionID" : "6","division" : "P Solo 5 - Age 14 to 15 (5 minutes) - $35"},
+                        {"divisionID" : "7","division" : "P Solo 6 - Age 16 to 17 (6 minutes) - $35"},
+                        {"divisionID" : "8","division" : "P Solo 7 - Age 18 to 19 (6 minutes) - $35"},
+                        {"divisionID" : "9","division" : "Duet/Duo - Age 7 and under (4 minutes) - $50"},
+                        {"divisionID" : "10","division" : "Duet/Duo - Age 9 and under (5 minutes) - $50"},
+                        {"divisionID" : "11","division" : "Duet/Duo - Age 13‏ and under (6 minutes) - $50"},
+                        {"divisionID" : "12","division" : "Duet/Duo - Age 19 and under (7 minutes) - $50"},
+                        {"divisionID" : "13","division" : "Trio - Age 7 and under (4 minutes) - $60"},
+                        {"divisionID" : "14","division" : "Trio - Age 9 and under (5 minutes) - $60"},
+                        {"divisionID" : "15","division" : "Trio - Age 13 and under (6 minutes) - $60"},
+                        {"divisionID" : "16","division" : "Trio - Age 19‏ and under (7 minutes) - $60"}
+                ]
+        },
+        {
+                "MixedEnsemble" : 
+                [
+                        {"divisionID" : "1","division" : "ME Ensemble 1 - Age 9 and under (5 minutes) - $80"},
+                        {"divisionID" : "2","division" : "ME Ensemble 2 - Age 13 and under (6 minutes) - $80"},
+                        {"divisionID" : "3","division" : "ME Ensemble 3 - Age 19 and under (7 minutes) - $80"}                
+                ]
+        },
+        {
+                "String" : 
+                [
+                        {"divisionID" : "1","division" : "S Solo 1 - Age 9 and under (4 minutes) - $35"},
+                        {"divisionID" : "2","division" : "S Solo 2 - Age 10-11 (4minutes‏) - $35"},
+                        {"divisionID" : "3","division" : "S Solo 3 - Age 12-13 (5minutes‏) - $35"},
+                        {"divisionID" : "4","division" : "S Solo 4 - Age 14-15 (5 minutes) - $35"},
+                        {"divisionID" : "5","division" : "S Solo 5 - Age 16-17 (6 minutes) - $35"},
+                        {"divisionID" : "6","division" : "S Solo 6 - Age 18-19 (6 minutes) - $35"},
+                        {"divisionID" : "7","division" : "S Baroque 1 - Age 9‏ or under (4minutes) - $35"},
+                        {"divisionID" : "8","division" : "S Baroque 2 - Age 10-11 (4minutes) - $35"},
+                        {"divisionID" : "9","division" : "S Baroque 3 - Age 12-13 (5minutes) - $35"},
+                        {"divisionID" : "10","division" : "S Baroque 4 - Age 14-15 (5 minutes) - $35"},
+                        {"divisionID" : "11","division" : "S Baroque 5 - Age 16-17 (6 minutes) - $35"},
+                        {"divisionID" : "12","division" : "S Baroque 6 - Age 18-19 (6 minutes) - $35"},
+                        {"divisionID" : "13","division" : "S Ensemble 1 Duet/Duo - Age 12 and under (5 minutes) - $50"},
+                        {"divisionID" : "14","division" : "S Ensemble 1 Trio - Age 12 and under (5 minutes) - $60"},
+                        {"divisionID" : "15","division" : "S Ensemble 1 Quartet/Group - Age 12 and under (5 minutes) - $80"},
+                        {"divisionID" : "16","division" : "S Ensemble 2 Duet/Duo - Age 13-15 (6 minutes) - $50"},
+                        {"divisionID" : "17","division" : "S Ensemble 2 Trio - Age 13-15 (6 minutes) - $60"},
+                        {"divisionID" : "18","division" : "S Ensemble 2 Quartet/Group - Age 13-15 (6 minutes) - $80"},
+                        {"divisionID" : "19","division" : "S Ensemble 3 Duet/Duo - Age 16-19 (6 minutes) - $50"},
+                        {"divisionID" : "20","division" : "S Ensemble 3 Trio - Age 16-19 (6 minutes) - $60"},
+                        {"divisionID" : "21","division" : "S Ensemble 3 Quartet/Group - Age 16-19 (6 minutes) - $80"}
+                ]
+        },
+        {
+                "Woodwinds" : 
+                [
+                        {"divisionID" : "1","division" : "W Solo 1 - Age 11 or under (4 minutes) - $35"},
+                        {"divisionID" : "2","division" : "W Solo 2 - Age 12-13 (5 minutes) - $35"},
+                        {"divisionID" : "3","division" : "W Solo 3 - Age 14-15 (6 minutes) - $35"},
+                        {"divisionID" : "4","division" : "W Solo 4 - Age 16-17 (6 minutes) - $35"},
+                        {"divisionID" : "5","division" : "W Solo 5 - Age 18-19 (7 minutes) - $35"},
+                        {"divisionID" : "6","division" : "W Ensemble 1 - Age 13 and under (5 minutes) - $80"},
+                        {"divisionID" : "7","division" : "W Ensemble 2 - Age 15 and under (5 minutes) - $80"},
+                        {"divisionID" : "8","division" : "W Ensemble 3 - Age 17 and under (6 minutes) - $80"},
+                        {"divisionID" : "9","division" : "W Ensemble 4 - Age 19 and under (7 minutes) - $80"}
+                ]
+        },
+        {
+                "Guitar" : 
+                [
+                        {"divisionID" : "1","division" : "G Division 1  Solo - Age 7 or under (5 minutes) - $40"},
+                        {"divisionID" : "2","division" : "G Division 1 Duo - Age 7 or under (5 minutes) - $50"},
+                        {"divisionID" : "3","division" : "G Division 1 Trio/Quartet/Group - Age 7 or under (5 minutes) - $60"},
+                        {"divisionID" : "4","division" : "G Division 2 Solo - Age 8-10 (7 minutes) - $40"},
+                        {"divisionID" : "5","division" : "G Division 2 Duo - Age 8-10 (7 minutes) - $50"},
+                        {"divisionID" : "6","division" : "G Division 2 Trio/Quartet/Group - Age 8-10 (7 minutes) - $60"},
+                        {"divisionID" : "7","division" : "G Division 3 Solo - Age 11-14 (10 minutes) - $40"},
+                        {"divisionID" : "8","division" : "G Division 3 Duo - Age 11-14 (10 minutes) - $50"},
+                        {"divisionID" : "9","division" : "G Division 3 Trio/Quartet/Group - Age 11-14 (10 minutes) - $60"},
+                        {"divisionID" : "10","division" : "G Division 4 Solo - Age 15-18 (12 minutes) - $40"},
+                        {"divisionID" : "11","division" : "G Division 4 Duo - Age 15-18 (12 minutes) - $50"},
+                        {"divisionID" : "12","division" : "G Division 4 Trio/Quartet/Group - Age 15-18 (12 minutes) - $60"},
+                        {"divisionID" : "13","division" : "G Division 5 Solo - Age 19-26 (12 minutes) - $40"},
+                        {"divisionID" : "14","division" : "G Division 5 Duo - Age 19-26 (12 minutes) - $50"},
+                        {"divisionID" : "15","division" : "G Division 5 Trio/Quartet/Group - Age 27 and up (12 minutes) - $60"},
+                        {"divisionID" : "16","division" : "G Division 6 Solo - Age 19-26 (12 minutes) - $40"},
+                        {"divisionID" : "17","division" : "G Division 6 Duo - Age 27 and up (12 minutes) - $50"},
+                        {"divisionID" : "18","division" : "G Division 6 Trio/Quartet/Group - Age 27 and up (12 minutes) - $60"}
+                ]
+                            
+        }
+]
