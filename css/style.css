@@ -246,11 +246,11 @@ tbody td:before {
  * turn on/off here for the seasonal contests between dbpac and baroque
  */
 #sel_dbpac{
-	 display: none;
+	 /*display: none;*/
 }
 
 #sel_baroque{
-	/*display: none;*/
+	display: none;
 }
 
 #instruction {

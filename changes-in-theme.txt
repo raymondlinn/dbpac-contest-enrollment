@@ -150,6 +150,8 @@ iv) add the get and update dbapc_dbapi functions
 
 - create_enrollment() 
 	- for the group_id -> add random integer (randint = rand(5,15)) to prevent the same students enter different entries
+- Test Dbpac Enrollment Form processing
+- Code edit_enrollment.php 
    
 
 Actual changed files:
@@ -158,9 +160,13 @@ Actual changed files:
 - class-dbpac-enrollments-export.php
 - edit-student.php
 - edit-enrollment.php
+- enroll-contest-form.php
+- style.css
+- dbpac-contest-emrollment.php
+- view-enrollment.php
 
 - do deactivate and activate
-- then add the profile menu again
+- then add the profile menu and login menu again
 
 
 

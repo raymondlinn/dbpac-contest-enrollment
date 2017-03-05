@@ -112,6 +112,7 @@ class Dbpac_Dbapi {
 		if (false === $wpdb->update($table_name, $data, array('student_id'=> $student_id), $column_formats)) {
 			return false;
 		}
+		return true;
 	}
 
 	// =================================Currently not using=========================================
@@ -483,30 +484,6 @@ class Dbpac_Dbapi {
 		}
 
 		return $enrollment_row;
-	}
-
-	// ======================================================================================
-	// Get Student entry by student ID
-	// @param $student_id
-	// @return $student_row - array of student data
-	// ======================================================================================
-	public static function get_stundent_data_by_id($student_id){
-		global $wpdb;
-		$table_name = $wpdb->prefix . 'dbpac_students';
-
-		$student_id = absint($student_id);
-		if (empty($student_id)){
-			// echo '<br/>';
-			// echo 'no student id from absint()';
-			return NULL;
-		}
-		$sql = "SELECT * FROM $table_name WHERE $id = $student_id";
-		$student_row = $wpdb->get_results($sql);
-		if (count($values) < 0){
-			return NULL;
-		}
-
-		return $student_row;
 	}
 
 } // end - Dbpac_Dbapi()

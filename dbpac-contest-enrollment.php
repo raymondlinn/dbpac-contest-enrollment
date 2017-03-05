@@ -45,6 +45,8 @@ function run_dbpac_contest_management_plugin() {
 	
 	add_action('populate_students_for_enroll_form', array('Dbpac_Student', 'populate_students'));
 
+	add_action('populate_students_for_edit_enrollment', array('Dbpac_Student', 'populate_students_for_edit'));
+
 	add_action('template_redirect', 'redirect_user_to_home');
 	add_action('update_profile', array('Dbpac_Student', 'edit_profile_form'), 12, 1);
 

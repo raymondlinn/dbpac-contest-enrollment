@@ -14,6 +14,8 @@ class Dbpac_Student {
 		add_action('admin_post_add_student', array($this, 'process_add_student_form'));
 		add_action('admin_post_enroll_contest', array($this, 'process_enroll_contest_form'));
 		add_action('admin_post_update_profile', array($this, 'process_update_profile'));
+		add_action('admin_post_edit_student', array($this, 'process_edit_student_form'));
+		add_action('admin_post_edit_enrollment', array($this, 'process_edit_enrollment_form'));
 
 		/* ******************************************************************************* *
 		 * This section is the filters section
@@ -445,7 +447,7 @@ class Dbpac_Student {
 		            $accomp_phone = preg_replace('/[^0-9]/', '', $_POST['accompanist_phone']);		            
 		 			
 		            $result = $this->create_student($user_id, $user_name, $user_email, $user_phone, $first_name, $last_name, $dob, $accomp_name, $accomp_phone );
-			    echo "$result";		            
+			    		            
 		            if ($result === 0) {
 		            	$errors = 'result 0 error';
 		            	echo $errors;
@@ -479,6 +481,87 @@ class Dbpac_Student {
 		$data = compact('user_id', 'user_name', 'user_email', 'user_phone', 'first_name', 'last_name', 'dob', 'accomp_name', 'accomp_phone');
 
 		return Dbpac_Dbapi::insert_dbpac_students($data);
+	}
+
+	/***********************************************************************************************
+	 * process_edit_student_form
+	 *
+	 * form processing of edit student form. sanitize and update a record in the student database 
+	 * it is almost the same as process_add_student_form with the student_id to update student
+	 * database
+	 **********************************************************************************************/
+
+	public function process_edit_student_form(){
+		if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+	        $redirect_url = home_url( 'view-student' );
+			if(!empty($_POST)) {
+				echo "process edit student starts";
+				
+				// Check the if user is logged in
+				if(is_user_logged_in()) {
+					global $current_user;
+      				wp_get_current_user();
+					$user_id = $current_user->ID;
+					$user_name = $current_user->user_firstname .' ' .$current_user->user_lastname;
+					$user_email = $current_user->user_email;
+
+					$user_phone = get_user_meta($current_user->ID, 'user_phone', true);
+                                        $user_phone = preg_replace('/[^0-9]/', '', $user_phone);
+
+					// sanitize student id
+                    $student_id = sanitize_text_field($_POST['student_id']);
+
+                    // Following five fields will be updated
+                    
+                    
+                    /*
+                    global $wpdb;
+                    $table_name = $wpdb->prefix . 'dbpac_students';
+                    $sql = $wpdb->prepare( "SELECT * FROM `$table_name` WHERE `student_id` = %d",  $id );        
+			        $student_row = $wpdb->get_row($sql);
+			        if (count($student_row) == 0){
+			        	$errors = 'result 0 error';
+		            	echo $errors;
+		            	$redirect_url = add_query_arg( 'edit-student-errors', $errors, $redirect_url );
+			        }
+					*/
+					// Sanitize the POST field
+		            $first_name = sanitize_text_field( $_POST['student_fname'] );
+		            $last_name = sanitize_text_field( $_POST['student_lname'] );
+		            
+		            // is the date  and it is string
+		            $dob = sanitize_text_field( $_POST['student_dob'] );
+
+		            $accomp_name = sanitize_text_field( $_POST['accompanist_fname'] );
+
+		            // sanitize phone number
+		            $accomp_phone = preg_replace('/[^0-9]/', '', $_POST['accompanist_phone']);		            
+		 			
+		 			// update the student database record
+		 			// prepare $data
+		 			$data = compact('user_id', 'last_name', 'first_name', 'dob', 'user_name', 'user_email', 'user_phone', 'accomp_name', 'accomp_phone');
+		 			$result = Dbpac_Dbapi::update_dbpac_students($student_id, $data);
+		 			          
+		            if ($result === false) {
+		            	$errors = 'result 0 error';
+		            	echo $errors;
+		            	$redirect_url = add_query_arg( 'edit-student-errors', $errors, $redirect_url );
+		            }		 			
+		            if ( is_wp_error( $result ) ) {
+		                // Parse errors into a string and append as parameter to redirect
+		                $errors = join( ',', $result->get_error_codes() );
+		                $redirect_url = add_query_arg( 'edit-student-errors', $errors, $redirect_url );
+		            } else {
+		                // Success, redirect to login page.
+		                $redirect_url = home_url( 'view-student' );
+		                $redirect_url = add_query_arg( 'updated', $first_name, $redirect_url );
+		            }
+		            	            
+		        } // is_user_logged_in		 
+		        wp_redirect( $redirect_url );
+		        exit;
+			} //if(!empty($_POST))
+		} // if ( 'POST' == $_SERVER['REQUEST_METHOD'] )
 	}
 
 	/***********************************************************************************************
@@ -617,7 +700,7 @@ class Dbpac_Student {
 	} // end - process_enroll_baroque_form
 
 	/***********************************************************************************************
-	 * create_student
+	 * create_enrollment
 	 *
 	 * creating student record by calling Dbpac_Dbapi 
 	 **********************************************************************************************/
@@ -648,7 +731,22 @@ class Dbpac_Student {
 		return true;
 	}
 
+
 	/***********************************************************************************************
+	 * process_edit_enrollment_form
+	 *
+	 * form processing of edit enrollment form. sanitize and update a record in the enrollment 
+	 * database 
+	 * it is almost the same as process_enroll_contest_form with the enollment_id to update
+	 * enrollment database
+	 **********************************************************************************************/
+	public function process_edit_enrollment_form(){
+
+	}
+
+
+	/***********************************************************************************************
+	 * ########## NOT USE ##########
 	 * update_student
 	 *
 	 * updating array of student records by calling Dbpac_Dbapi 
@@ -768,6 +866,76 @@ class Dbpac_Student {
 	}// end of populate_students
 
 
+		/***********************************************************************************************
+	 * populate_students_for_edit
+	 *
+	 * for the enroll contest form student selec fields
+	 **********************************************************************************************/
+	public static function populate_students_for_edit(){
+
+		if(is_user_logged_in()){
+			global $current_user;
+			wp_get_current_user();
+			$user_id = $current_user->ID;
+
+			global $wpdb;
+			$table_name = $wpdb->prefix . 'dbpac_students';
+
+			$query = "SELECT student_id, first_name, last_name, dob
+						FROM $table_name
+						WHERE user_id = $user_id
+						";
+
+		    $students = $wpdb->get_results($query);  
+
+		    $count = count($students);
+
+		    if ($count !== 0){
+		    	echo "<label>Select one or more students for this enrollment <span class='required'>*</span>";
+	            echo "<select name='sel_students[]' multiple >";
+
+	            foreach($students as $row){
+	            	unset($id, $first, $last);
+                  	$id = $row->student_id;
+                  	$first = $row->first_name;
+                  	$last = $row->last_name;
+                  	$dob = $row->dob;
+                  	echo '<option value="'.$id.'">'.$first.' '.$last. ' (' .$dob. ')' .'</option>';
+	            }               
+	            echo "</select>"; 
+	            echo "</label>" ;
+
+	            // add instruction on how to select multiple students
+	            echo "<label style='color:#c45544;'>" . " * Use 'Control' and 'Mouse' keys to choose multiple students for Duet, Trio, Quartet and Group Contest." . "</label>";
+
+	            
+	            echo '
+	            		</div>
+            				<input type="hidden" name="action" value="edit_enrollment">
+            				<div class="button-section">
+                			<center>
+                   				<input type="submit" name="edit_enrollment" value="Update Enrollment" /> 
+                			</center>    
+            				</div>
+	            		';
+	            
+			}
+			else {
+				echo '
+						</div>
+						<div>							
+							<h4> You should have already enrolled to edit enrollment </h>								
+							<p> Please go to <a href="'.home_url('enroll-contest').'">enollment</a> to enroll a contest.</p>
+						</div>
+
+					';					
+				
+			}
+		}// is_user_logged_in
+
+	}// end of populate_students_for_edit
+
+
 	/***********************************************************************************************
 	 * process_update_profile
 	 *
@@ -874,6 +1042,8 @@ class Dbpac_Student {
 	
 	public function add_query_vars($vars){
 		$vars[] = 'checkout';
+		$vars[] = 'student_id';
+		$vars[] =  'enrollment_id';
 		return $vars;
 	}
 	

@@ -49,7 +49,7 @@
         			echo "<td>" . $row->dob . "</td>";
         			echo "<td>" . $row->accomp_name . "</td>";
         			echo "<td>" . $row->accomp_phone . "</td>";
-        			echo "<td> <a href=" .add_query_arg('sutdent_id', $row->student_id, home_url('edit-student')) . ">edit</a></td>";
+        			echo "<td> <a href=" .add_query_arg('student_id', $row->student_id, home_url('edit-student')) . ">edit</a></td>";
         			echo "</tr>";	
 				}
 				echo '

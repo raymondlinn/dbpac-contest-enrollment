@@ -9,7 +9,7 @@
 			";
 		} else {
 			// check if DBPAC Season or Baroque Season
-			$isDbpac = 'false';
+			$isDbpac = 'true';
 
 			// preparing to get the data
 			global $current_user;
@@ -26,7 +26,7 @@
 					<h3><center> 2017 DBPAC Contest Registration</center></h3>
 				";
 				// prepare querey
-				$query = "SELECT $table_name.student_id, $table_name.first_name, $table_name.last_name, $table_name.dob, $enrollment_table_name.division_name, $enrollment_table_name.composer_name, $enrollment_table_name.song_title, $enrollment_table_name.duration, $enrollment_table_name.group_id, $enrollment_table_name.fees, $enrollment_table_name.is_paid
+				$query = "SELECT $table_name.student_id, $table_name.first_name, $table_name.last_name, $table_name.dob, $enrollment_table_name.division_name, $enrollment_table_name.composer_name, $enrollment_table_name.song_title, $enrollment_table_name.duration, $enrollment_table_name.group_id, $enrollment_table_name.fees, $enrollment_table_name.is_paid, $enrollment_table_name.enrollment_id
 						FROM $table_name
 						INNER JOIN $enrollment_table_name
 						ON ($table_name.student_id = $enrollment_table_name.student_id AND $table_name.user_id = $user_id AND $enrollment_table_name.is_enrolled = 'yes' AND $enrollment_table_name.contest_name = '2017 DBPAC')						
@@ -39,7 +39,7 @@
 					<h3><center>2017 Baroque Festival Registration</center></h3>
 				";
 				// prepare querey
-				$query = "SELECT $table_name.student_id, $table_name.first_name, $table_name.last_name, $table_name.dob, $enrollment_table_name.instrument_name, $enrollment_table_name.composer_name, $enrollment_table_name.song_title, $enrollment_table_name.duration, $enrollment_table_name.group_id, $enrollment_table_name.fees, $enrollment_table_name.is_paid
+				$query = "SELECT $table_name.student_id, $table_name.first_name, $table_name.last_name, $table_name.dob, $enrollment_table_name.instrument_name, $enrollment_table_name.composer_name, $enrollment_table_name.song_title, $enrollment_table_name.duration, $enrollment_table_name.group_id, $enrollment_table_name.fees, $enrollment_table_name.is_paid, $enrollment_table_name.enrollment_id
 						FROM $table_name
 						INNER JOIN $enrollment_table_name
 						ON ($table_name.student_id = $enrollment_table_name.student_id AND $table_name.user_id = $user_id AND $enrollment_table_name.is_enrolled = 'yes' AND $enrollment_table_name.contest_name = '2017 Baroque')
@@ -97,6 +97,7 @@
 								<th> Group ID </th>
 								<th> Fees (in dollar) </th>
 								<th> Payment </th>
+								<th> Update </th>
 							</tr>		
 						</thead>
 						<tbody>
@@ -149,7 +150,10 @@
 	    			else {
 	    				//echo "<td>" . $row->is_paid . "</td>";
 	    				echo "<td>paid</td>";
-	    			}	    	
+	    			}
+
+	    			// add edit link
+	    			echo "<td> <a href=" .add_query_arg('enrollment_id', $row->enrollment_id, home_url('edit-enrollment')) . ">edit</a></td>";	    	
         			
         			echo "</tr>";        			
         			$total_fees +=	$row->fees;
