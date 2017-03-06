@@ -32,7 +32,7 @@ if(is_user_logged_in()) {
                             Morning
                             <input type='radio' name='is_morning' value='no'>
                             Evening<br>
-                            </label>
+                        </label>
                         <input type='hidden' name='contest' id='contest' value='dbpac'>
             ";            
                         do_action('populate_students_for_enroll_form', true);  

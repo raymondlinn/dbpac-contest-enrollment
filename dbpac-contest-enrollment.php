@@ -44,7 +44,7 @@ function run_dbpac_contest_management_plugin() {
 	add_action('template_redirect','pages_allow_only_logged_in_user');
 	
 	add_action('populate_students_for_enroll_form', array('Dbpac_Student', 'populate_students'));
-
+	// populating students for edit enrollment
 	add_action('populate_students_for_edit_enrollment', array('Dbpac_Student', 'populate_students_for_edit'));
 
 	add_action('template_redirect', 'redirect_user_to_home');
