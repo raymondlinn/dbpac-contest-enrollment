@@ -894,8 +894,9 @@ class Dbpac_Student {
 		    $students = $wpdb->get_results($query); 
 		    $count = count($students);
 		    if ($count !== 0){
-		    	echo "<label>Select one or more students for this enrollment <span class='required'>*</span>";
-	            echo "<select name='sel_students[]' multiple >";
+		    	echo "<label>Update student for this enrollment <span class='required'>*</span>";
+	            //echo "<select name='sel_students[]' multiple >";
+	            echo "<select name='sel_student' >";
 
 	            foreach($students as $row){
 	            	unset($id, $first, $last);
@@ -918,7 +919,8 @@ class Dbpac_Student {
 	            echo "</label>" ;
 
 	            // add instruction on how to select multiple students
-	            echo "<label style='color:#c45544;'>" . " * Use 'Control' and 'Mouse' keys to choose multiple students for Duet, Trio, Quartet and Group Contest." . "</label>";
+	            // echo "<label style='color:#c45544;'>" . " * The selected student is currently enrolled. Please update the student if you would like." . "</label>";
+	            //  echo "<label style='color:#c45544;'>" . " Please contact <a href='mailto:joanna@teachers.org'>Ms. Lo</a> for editing the group enrollment." . "</label>";
 
 	            
 	            echo '

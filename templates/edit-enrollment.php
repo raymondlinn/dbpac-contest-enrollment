@@ -19,6 +19,9 @@
                     $duration_str = sprintf('%02d:%02d', $mins, $seconds);
                     // check if it is morning preffered or afternoon
                     $is_morning = $enrollment_row->is_morning;
+
+                    // get the division to pre select the dropdown division list
+                    $division = $enrollment_row->division_name;
             
 ?>
                     <div id='sel_dbpac' class='contest_form'>
@@ -26,7 +29,7 @@
                         <h1>Edit Enrollment<span>Update enrollment information</span></h1>
                         <form id="enroll_dbpac" name="enroll_dbpac" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">  
                             <div class='inner-wrap'>
-                                <label>Instrument or Division <span class='required'>*</span>
+                                <label>Instrument or Division <span style='color:#c45544;'>(Select to update)</span><span class='required'> *</span>
                                 <div id='division-select'> 
                                 </div> 
                                 </label>               
