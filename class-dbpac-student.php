@@ -871,7 +871,7 @@ class Dbpac_Student {
 	 *
 	 * for the enroll contest form student selec fields
 	 **********************************************************************************************/
-	public static function populate_students_for_edit(){
+	public static function populate_students_for_edit($enrollment_id){
 
 		if(is_user_logged_in()){
 			global $current_user;
@@ -879,17 +879,20 @@ class Dbpac_Student {
 			$user_id = $current_user->ID;
 
 			global $wpdb;
-			$table_name = $wpdb->prefix . 'dbpac_students';
 
+			$enrollment_table_name = $wpdb->prefix . 'dbpac_enrollments';
+		    $enrollment_id = absint($enrollment_id);		    
+		    $sql = $wpdb->prepare( "SELECT student_id FROM `$enrollment_table_name` WHERE `enrollment_id` = %d",  $enrollment_id );     
+		    $enrollment_row = $wpdb->get_row($sql);
+
+		    // retreive students to be populated 
+			$table_name = $wpdb->prefix . 'dbpac_students';
 			$query = "SELECT student_id, first_name, last_name, dob
 						FROM $table_name
 						WHERE user_id = $user_id
 						";
-
-		    $students = $wpdb->get_results($query);  
-
+		    $students = $wpdb->get_results($query); 
 		    $count = count($students);
-
 		    if ($count !== 0){
 		    	echo "<label>Select one or more students for this enrollment <span class='required'>*</span>";
 	            echo "<select name='sel_students[]' multiple >";
@@ -900,7 +903,16 @@ class Dbpac_Student {
                   	$first = $row->first_name;
                   	$last = $row->last_name;
                   	$dob = $row->dob;
-                  	echo '<option value="'.$id.'">'.$first.' '.$last. ' (' .$dob. ')' .'</option>';
+                  	// pre-select for enrollment id for editing
+                  	// 1) check enrollment id
+                  	// 2) if it is a group with (group id)
+                  	// 3) use <option selected> as selected depends on the student id of enrollment table
+                  	if ($id == $enrollment_row->student_id){
+                  		echo '<option selected value="'.$id.'">'.$first.' '.$last. ' (' .$dob. ')' .'</option>';
+                  	}
+                  	else {
+                  		echo '<option value="'.$id.'">'.$first.' '.$last. ' (' .$dob. ')' .'</option>';
+                  	}
 	            }               
 	            echo "</select>"; 
 	            echo "</label>" ;
