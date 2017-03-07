@@ -741,7 +741,127 @@ class Dbpac_Student {
 	 * enrollment database
 	 **********************************************************************************************/
 	public function process_edit_enrollment_form(){
+		//echo '<br />';
+		//echo 'process edit enroll dbpac form';
 
+		if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
+	        $redirect_url = home_url( 'view-enrollment' );
+			if(!empty($_POST)) {
+				//echo '<br />';
+				//echo 'not empty';
+				// Check the if user is logged in
+				if(is_user_logged_in()) {
+					//echo '<br />';
+					//echo 'user logged in';
+
+					global $current_user;
+      				wp_get_current_user();
+					$user_id = $current_user->ID;
+
+					$enrollment_id = $_POST['enrollment_id'];
+					$enrollment_id = absint($enrollment_id);
+
+					// decide whether this is for what contest enrollment
+					// by checking the hidden input from the front-end form
+					$contest = ($_POST['contest']);
+
+					// processing dbpac enrollment form
+					if ($contest == 'dbpac'){
+						$contest_name = '2017 DBPAC';
+						// sanitize the post fields
+						$selected_value = sanitize_text_field($_POST['enroll_contest']);
+						//echo '<br />';
+						//echo $selected_value;
+
+						$options = explode(";", $selected_value);
+						$instrument_name = $options[0];
+						$division_name = $options[1];
+						//echo '<br/>';
+						//echo $instrument_name;
+						//echo '<br/>';
+						//echo $division_name;
+						// get the fees from division name
+						// example division name: "P Solo 1a - Age 5 (2 minutes) - $35"
+						$extract_fees = explode(" - ", $division_name);
+						$fees = str_replace('$', '', $extract_fees[2]);
+					} // end - processing dbpac enrollment form
+
+					// processing baroque enrollment form
+					else {
+						$contest_name = '2017 Baroque';
+						// sanitize the post fields
+						$selected_value = sanitize_text_field($_POST['enroll_contest']);
+						echo '<br />';
+						echo $selected_value;
+
+						$instrument_name = $selected_value;
+						echo '<br/>';
+						echo $instrument_name;
+
+						// set division to no division
+						$division_name = 'no divion';
+
+						if($instrument_name == 'Mixed Ensemble'){
+							$fees = '10';
+						}
+						else {
+							$fees = '15';
+						}						
+					} // end - processing baroque enrollment form
+					
+					// change $fees to int type
+					
+
+					$song_title = sanitize_text_field($_POST['song_title']);
+
+					$song_duration = sanitize_text_field($_POST['song_duration']);
+					$mixed_durations = explode(":", $song_duration);
+					$minute = absint($mixed_durations[0]);
+					$second = absint($mixed_durations[1]);
+					$duration = $minute * 60 + $second;
+
+					//echo '<br/>';
+					//echo $duration;
+
+					$composer_name = sanitize_text_field($_POST['composer_name']);
+					// do not update these hiden fields - is_enrolled, is_paid
+					//$is_enrolled = 'yes';
+					//$is_paid = 'no';
+					
+					$is_morning = $_POST['is_morning'];
+
+					$student_id = $_POST['sel_student'];
+									
+					// could be multiple students for duo, trio, quartet and mixed ensemble
+					// so handle it in create_enrollment function
+					$fees = absint($fees);
+					
+					//echo '<br/>';
+					//echo $fees;
+
+					// TODO #######################################kF
+					// call dbpac_dbapi::update_dbpac_enrollments
+					$data = compact('instrument_name', 'division_name', 'song_title', 'duration', 'composer_name', 'fees', 'is_morning');
+
+					$result = dbpac_dbapi::update_dbpac_enrollments($enrollment_id, $data);
+					if ($result === false) {
+						$errors = 'edit enrollment errors';
+						$redirect_url = add_query_arg( 'edit-enrollment-errors', $errors, $redirect_url );
+					}
+					if (is_wp_error($result)){
+						$errors = join( ',', $result->get_error_codes() );
+	                	$redirect_url = add_query_arg( 'edit-enrollment-errors', $errors, $redirect_url );
+					}else {
+						$redirect_url = home_url( 'view-enrollment' );
+	                	$redirect_url = add_query_arg( 'edited', $enrollment_id, $redirect_url );
+					}
+					
+					
+				} // if(is_user_logged_in())
+				wp_redirect( $redirect_url );
+		        exit;
+			} // if(!empty($_POST))
+		} // if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) 
 	}
 
 
@@ -889,12 +1009,13 @@ class Dbpac_Student {
 			$table_name = $wpdb->prefix . 'dbpac_students';
 			$query = "SELECT student_id, first_name, last_name, dob
 						FROM $table_name
-						WHERE user_id = $user_id
+						WHERE user_id = $user_id AND student_id = $enrollment_row->student_id
 						";
 		    $students = $wpdb->get_results($query); 
 		    $count = count($students);
 		    if ($count !== 0){
-		    	echo "<label>Update student for this enrollment <span class='required'>*</span>";
+		    	/*
+		    	echo "<label>The following student is enrolled.";
 	            //echo "<select name='sel_students[]' multiple >";
 	            echo "<select name='sel_student' >";
 
@@ -917,21 +1038,24 @@ class Dbpac_Student {
 	            }               
 	            echo "</select>"; 
 	            echo "</label>" ;
-
+				*/
+				foreach($students as $row) {
+					unset($id, $first, $last);
+                  	$id = $row->student_id;
+                  	$first = $row->first_name;
+                  	$last = $row->last_name;
+                  	$dob = $row->dob;
+                  	if ($id == $enrollment_row->student_id){
+                  		echo '<label><strong style="color:#c45544; font-size:125%">Update' .' ' .$first.' '.$last. ' (' .$dob. ')' . ' enrollment information</strong>';
+                  	}
+                  	else {
+                  		echo '<label style="color:#c45544;"">No student found';
+                  	}
+				}
+				echo "</label>";
 	            // add instruction on how to select multiple students
 	            // echo "<label style='color:#c45544;'>" . " * The selected student is currently enrolled. Please update the student if you would like." . "</label>";
 	            //  echo "<label style='color:#c45544;'>" . " Please contact <a href='mailto:joanna@teachers.org'>Ms. Lo</a> for editing the group enrollment." . "</label>";
-
-	            
-	            echo '
-	            		</div>
-            				<input type="hidden" name="action" value="edit_enrollment">
-            				<div class="button-section">
-                			<center>
-                   				<input type="submit" name="edit_enrollment" value="Update Enrollment" /> 
-                			</center>    
-            				</div>
-	            		';
 	            
 			}
 			else {

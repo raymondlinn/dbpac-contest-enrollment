@@ -29,6 +29,9 @@
                         <h1>Edit Enrollment<span>Update enrollment information</span></h1>
                         <form id="enroll_dbpac" name="enroll_dbpac" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">  
                             <div class='inner-wrap'>
+<?php            
+                                do_action('populate_students_for_edit_enrollment', $id);  
+?> 
                                 <label>Instrument or Division <span style='color:#c45544;'>(Select to update)</span><span class='required'> *</span>
                                 <div id='division-select'> 
                                 </div> 
@@ -66,9 +69,14 @@
                                 </label>
                                 <input type="hidden" name="enrollment_id" value="<?php echo $id;?>">
                                 <input type='hidden' name='contest' id='contest' value='dbpac'>
-<?php            
-                            do_action('populate_students_for_edit_enrollment', $id);  
-?>   
+                            </div>
+                            <input type="hidden" name="action" value="edit_enrollment">
+                            <div class="button-section">
+                            <center>
+                                <input type="submit" name="edit_enrollment" value="Update Enrollment" /> 
+                            </center>    
+                            </div>    
+  
                         </form>
                         </div>
                     </div>
