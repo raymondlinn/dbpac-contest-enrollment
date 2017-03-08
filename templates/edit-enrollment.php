@@ -22,6 +22,7 @@
 
                     // get the division to pre select the dropdown division list
                     $division = $enrollment_row->division_name;
+
             
 ?>
                     <div id='sel_dbpac' class='contest_form'>
@@ -33,8 +34,35 @@
                                 do_action('populate_students_for_edit_enrollment', $id);  
 ?> 
                                 <label>Instrument or Division <span style='color:#c45544;'>(Select to update)</span><span class='required'> *</span>
-                                <div id='division-select'> 
-                                </div> 
+                                
+                                <div>
+<?php                                
+                                    $plugin_path = plugins_url();
+                                    $file_name = $plugin_path . '/dbpac-contest-enrollment/js/dbpac-options.json';
+                                    $option_json = file_get_contents($file_name);
+                                    $jsonObj = json_decode($option_json);                                   
+                                    
+                                    echo '<select name="enroll_contest" id="dbpac_division">';
+                                    foreach($jsonObj as $key => $optgroups){
+                                        echo $key . '<br />';
+                                        if (gettype($optgroups) == "object"){
+                                            foreach($optgroups as $optgroup => $value){
+                                                echo '<optgroup label="' . $optgroup . ' ">';
+                                                foreach($value as $key => $option){
+                                                    // selece the current enrollment division
+                                                    if ($division == $option->division) {
+                                                        echo '<option id="' .$option->divisionID . '" value="' . $optgroup . ';' . $option->division . '" selected>' . $option->division . '</option>';
+                                                    } else{
+                                                        echo '<option id="' .$option->divisionID . '" value="' . $optgroup . ';' . $option->division . '">' . $option->division . '</option>'; 
+                                                    }                         
+                                                }
+                                            }
+                                        }
+                                    } 
+                                    echo '</select>';                                    
+?>
+                                <div>
+
                                 </label>               
                                 <label>Song Title <span class='required'>*</span>
                                 <input type='text' name='song_title' value='<?php echo $enrollment_row->song_title; ?>' />
