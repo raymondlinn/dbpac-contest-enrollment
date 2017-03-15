@@ -16,7 +16,9 @@
             // user to update the student information
             // change the dob from Y-m-d format to string format (m/d/Y)
             $dob = DateTime::createFromFormat('Y-m-d', $student_row->dob);
+            //echo $dob . '<br />';
             $dob_str = $dob->format('m/d/Y');
+            //echo $dob_str;
             
             ?>
 

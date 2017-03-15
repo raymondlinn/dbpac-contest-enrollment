@@ -531,6 +531,7 @@ class Dbpac_Student {
 		            
 		            // is the date  and it is string
 		            $dob = sanitize_text_field( $_POST['student_dob'] );
+		            $dob = date("Y-m-d", strtotime($dob));
 
 		            $accomp_name = sanitize_text_field( $_POST['accompanist_fname'] );
 

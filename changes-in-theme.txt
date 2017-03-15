@@ -164,6 +164,7 @@ Actual changed files:
 - style.css
 - dbpac-contest-emrollment.php
 - view-enrollment.php
+- dbpac-contest-enrollment.js
 
 - do deactivate and activate
 - then add the profile menu and login menu again

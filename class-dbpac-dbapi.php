@@ -87,16 +87,16 @@ class Dbpac_Dbapi {
 		// print_r($column_formats);
 
 		$data = array_change_key_case($data);
-		// echo '<br/>';
-		// echo 'array_change_keycase';
-		// echo '<br/>';
-		// print_r($data);
+		echo '<br/>';
+		echo 'array_change_keycase';
+		echo '<br/>';
+		print_r($data);
 
 		$data = array_intersect_key($data, $column_formats);
-		// echo '<br/>';
-		// echo 'array_intersect_key';
-		// echo '<br/>';
-		// print_r($data);
+		echo '<br/>';
+		echo 'array_intersect_key';
+		echo '<br/>';
+		print_r($data);
 
 		$data_keys = array_keys($data);
 		// echo '<br/>';

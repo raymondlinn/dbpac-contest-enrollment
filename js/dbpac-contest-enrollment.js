@@ -21,7 +21,8 @@
 			        $optgroup.appendTo($select);
 
 			        $.each(options, function(j, option) {
-			            var $option = $("<option>", {text: option.division, id: option.divisionID, value: groupName + ';' + option.division});
+			            var $option = $("<option>", {text: option.division, id: option.divisionID, 
+			            	value: groupName + ';' + option.division});
 			            $option.appendTo($optgroup);
 			        });
 			    });
@@ -30,7 +31,8 @@
 
 		/**
 		 * for the dob datepicker
-		 * <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+		 * <link rel="stylesheet" 
+		 * href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
  		 * <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 		 */
 		$("#datepicker").datepicker({
@@ -341,6 +343,94 @@
 			  form.submit();
 			}
 		});
+
+		/**
+		 * Initialize form validation on the editstudent form.
+		 * It has the name attribute "editstudent"
+		 * need jquery-validate
+		 */
+		$("form[name='editstudent']").validate({
+			// Specify validation rules
+			rules: {
+				// The key name on the left side is the name attribute
+				// of an input field. Validation rules are defined
+				// on the right side
+				student_fname: "required",
+				student_lname: "required",
+				student_dob: "required",
+				accompanist_fname: {
+					required: true,
+					rangelength: [5, 64]
+				},
+				accompanist_phone: {
+					required: true,
+					phoneUS: true
+				}
+			},
+			// Specify validation error messages
+			messages: {
+				student_fname: "Please enter your first name",
+				student_lname: "Please enter your last name",
+				student_dob: "Please select your date of birth",
+				accompanist_fname: {
+					required: "Please enter accompanist full name",
+					rangelength: "Accompnist full name must be between 5 and 64 letters long"
+				},
+				accompanist_phone: "Please enter a valid phone nmuber"
+			},
+			// Make sure the form is submitted to the destination defined
+			// in the "action" attribute of the form when valid
+			submitHandler: function(form) {
+			  form.submit();
+			}
+		});
+
+
+		/**
+		 * Initialize form validation on the edit_enrollment form.
+		 * It has the name attribute "edit_enrollment"
+		 * need jquery-validate
+		 */
+		$("form[name='edit_enrollment']").validate({
+			// Specify validation rules
+			rules: {
+				// The key name on the left side is the name attribute
+				// of an input field. Validation rules are defined
+				// on the right side
+				dbpac_contest: "required",
+				song_title: {
+					required: true,
+					rangelength:[5, 64]
+				},
+				song_duration: {
+					required: true,
+					duration: true
+				},
+				composer_name: {
+					required: true,
+					rangelength: [5, 64]
+				}
+			},
+			// Specify validation error messages
+			messages: {
+				dbpac_contest: "Please select instrument/division",
+				song_title: {
+					required: "Please enter song title",
+					rangelength: "Song title must be between 5 and 64 letters long"
+				},
+				song_duration: "Please enter duration of the song in mm:ss format",
+				composer_name: {
+					required: "Please enter composer name",
+					rangelength: "Composer name must be between 5 and 64 letters long"
+				}
+			},
+			// Make sure the form is submitted to the destination defined
+			// in the "action" attribute of the form when valid
+			submitHandler: function(form) {
+			  form.submit();
+			}
+		});
+
 
 		/**
 		 * Pagination features for table
